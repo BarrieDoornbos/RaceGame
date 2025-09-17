@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class player : carcontroller
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Update()
     {
-        
+        PlayerInput();
+        Accelerate();
+        Turn();
+        UpdateAllWheels();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void PlayerInput()
     {
-        
+        HorizontalInput = Input.GetAxis("Horizontal");
+        VerticalInput = Input.GetAxis("Vertical");
+        IsBraking = Input.GetKey(KeyCode.Space);
     }
 }
