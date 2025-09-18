@@ -18,7 +18,7 @@ public class carcontroller : MonoBehaviour
     public Transform RearRightWheel;
 
     protected float HorizontalInput;
-    public float VerticalInput;
+    protected float VerticalInput;
     protected float CurrentSteeringAngle;
     protected float CurrentBrakeForce;
     protected bool IsBraking;
@@ -41,7 +41,6 @@ public class carcontroller : MonoBehaviour
 
     protected void Brake()
     {
-        Debug.Log("Brake!");
         FrontLeftWheelCollider.brakeTorque = CurrentBrakeForce;
         FrontRightWheelCollider.brakeTorque = CurrentBrakeForce;
         RearLeftWheelCollider.brakeTorque = CurrentBrakeForce;
