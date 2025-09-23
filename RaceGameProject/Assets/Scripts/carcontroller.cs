@@ -6,6 +6,11 @@ public class carcontroller : MonoBehaviour
     public float MotorForce = 100f;
     public float BrakeForce = 500f;
     public float MaxSteeringAngle = 30f;
+    public float EngineBrake = 100f;
+
+    public float Speed;
+    public float MaxSpeed;
+    protected Rigidbody rb;
 
     public WheelCollider FrontLeftWheelCollider;
     public WheelCollider FrontRightWheelCollider;
@@ -23,6 +28,11 @@ public class carcontroller : MonoBehaviour
     protected float CurrentBrakeForce;
     protected bool IsBraking;
 
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     protected void Accelerate()
     {
         RearLeftWheelCollider.motorTorque = VerticalInput * MotorForce;
