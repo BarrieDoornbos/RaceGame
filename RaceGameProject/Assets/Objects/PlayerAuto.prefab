@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0b2242b93f55ced4282fe504f37f0d33, type: 3}
       propertyPath: m_Name
-      value: Auto
+      value: PlayerAuto
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -125,6 +125,9 @@ MonoBehaviour:
   MotorForce: 1000
   BrakeForce: 1000
   MaxSteeringAngle: 35
+  EngineBrake: 100
+  Speed: 0
+  MaxSpeed: 0
   FrontLeftWheelCollider: {fileID: 1176716361677229401}
   FrontRightWheelCollider: {fileID: 5559865233215091201}
   RearLeftWheelCollider: {fileID: 5147521980646781554}

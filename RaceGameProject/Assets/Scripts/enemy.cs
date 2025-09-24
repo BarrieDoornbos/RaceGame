@@ -1,16 +1,25 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class enemy : carcontroller
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private List<GameObject> CheckpointsList = new List<GameObject>();
+    private List<GameObject> Checkpoints;
+
+    private void Start()
     {
-        
+        CheckpointsList = GameObject.FindGameObjectsWithTag("Checkpoint").ToList();
+        Checkpoints = new List<GameObject>(CheckpointsList);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void NextCheckpoint()
     {
-        
+        foreach (var checkpoint in Checkpoints)
+        {
+
+        }
+            
     }
 }
