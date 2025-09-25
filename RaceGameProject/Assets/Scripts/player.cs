@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class player : carcontroller
 {
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     private void Update()
     {
         PlayerInput();
@@ -25,8 +29,8 @@ public class player : carcontroller
 
         if (VerticalInput == 0 && Speed > 5)
         {
-            RearRightWheelCollider.motorTorque -= EngineBrake;
-            RearLeftWheelCollider.motorTorque -= EngineBrake;
+            RearRightWheelCollider.brakeTorque = EngineBrake;
+            RearLeftWheelCollider.brakeTorque = EngineBrake;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -35,13 +39,17 @@ public class player : carcontroller
             RearLeftWheelCollider.motorTorque = 0;
             RearRightWheelCollider.motorTorque = 0;
         }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            EBrake();
+        }
     }
 
     private void PlayerInput()
     {
         HorizontalInput = Input.GetAxis("Horizontal");
         VerticalInput = Input.GetAxis("Vertical");
-        IsBraking = Input.GetKey(KeyCode.Space);
     }
 
     private void Unflip()

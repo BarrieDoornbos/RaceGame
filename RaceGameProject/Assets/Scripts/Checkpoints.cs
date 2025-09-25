@@ -6,14 +6,14 @@ using TMPro;
 
 public class Checkpoints : MonoBehaviour
 {
-    public List<GameObject> AllCheckpoints = new List<GameObject>();
-    public List<GameObject> CheckCheckpoints;
-    public int CurrentCheckpoints;
-    protected int TotalCheckpoints;
+    private List<GameObject> AllCheckpoints = new List<GameObject>();
+    private List<GameObject> CheckCheckpoints;
+    private int CurrentCheckpoints;
+    private int TotalCheckpoints;
 
-    public int CurrentRound = 1;
+    private int CurrentRound = 1;
     private int TotalRounds = 3;
-    public int PlayableRounds = 3;
+    private int PlayableRounds = 3;
 
     public TMP_Text CheckpointCounter;
     public TMP_Text RoundCounter;

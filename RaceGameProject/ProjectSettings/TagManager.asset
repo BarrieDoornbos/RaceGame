@@ -7,6 +7,7 @@ TagManager:
   - Checkpoint
   - StartFinish
   - Start
+  - AiBrake
   layers:
   - Default
   - TransparentFX
