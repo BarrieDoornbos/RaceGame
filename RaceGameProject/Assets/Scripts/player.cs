@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class player : carcontroller
 {
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -55,6 +56,9 @@ public class player : carcontroller
     private void Unflip()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
+        Vector3 rot = transform.eulerAngles;
+        rot.z = 0f;
+        transform.eulerAngles = rot;
+        Speed = 0;
     }
 }

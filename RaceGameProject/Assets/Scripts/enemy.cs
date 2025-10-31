@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -9,6 +10,8 @@ public class enemy : carcontroller
     public List<GameObject> CheckpointsList = new List<GameObject>();
     private List<GameObject> Checkpoints;
     public GameObject ClosestCheckpoint;
+
+    float stuckTimer = 2f;
 
     private void Start()
     {
@@ -26,7 +29,8 @@ public class enemy : carcontroller
         Speed = rb.linearVelocity.magnitude * 3.6f;
 
         Vector3 DirToMove = (ClosestCheckpoint.transform.position - transform.position).normalized;
-        float dot = Vector3.Dot(transform.forward, DirToMove);
+
+        VerticalInput = 1;
 
         if (Speed >= MaxSpeed)
         {
@@ -36,15 +40,6 @@ public class enemy : carcontroller
         if (Checkpoints.Count == 0)
         {
             ClosestCheckpoint = GameObject.FindWithTag("StartFinish");
-        }
-
-        if (dot > 0)
-        {
-            VerticalInput = 1;
-        }
-        else
-        {
-            VerticalInput = -1;
         }
 
         float AngleToDir = Vector3.SignedAngle(transform.forward, DirToMove, transform.up);
@@ -60,6 +55,19 @@ public class enemy : carcontroller
         else
         {
             HorizontalInput = 0;
+        }
+
+        if (Speed < 3)
+        {
+            stuckTimer -= Time.deltaTime;
+            if (stuckTimer < 0)
+            {
+                transform.Translate(Vector3.back * 10f * Time.deltaTime, Space.Self);
+            }
+        }
+        else
+        {
+            stuckTimer = 2f;
         }
 
     }
