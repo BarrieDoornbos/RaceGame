@@ -76,12 +76,14 @@ public class enemy : carcontroller
     {
         if (other.gameObject.tag == "Checkpoint" && Checkpoints.Contains(other.gameObject))
         {
+            CheckpointsPassed++;
             Checkpoints.Remove(other.gameObject);
             ClosestCheckpoint = Checkpoints.First();
         }
 
         if (other.gameObject.tag == "StartFinish" && Checkpoints.Count == 0)
         {
+            CheckpointsPassed++;
             Checkpoints = new List<GameObject>(CheckpointsList);
             ClosestCheckpoint = Checkpoints.First();
         }

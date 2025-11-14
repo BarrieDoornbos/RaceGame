@@ -29,6 +29,8 @@ public class carcontroller : MonoBehaviour
     protected float CurrentBrakeForce;
     protected bool IsBraking;
 
+    public int CheckpointsPassed;
+
 
     protected void Accelerate()
     {
