@@ -9,9 +9,12 @@ using UnityEngine;
 public class player : carcontroller
 {
     private List<GameObject> AllCheckpoints = new List<GameObject>();
-    private List<GameObject> CheckCheckpoints;
+    private List<GameObject> CheckpointsList;
     private int CurrentCheckpoints;
     private int TotalCheckpoints;
+
+    private List<GameObject> AllPlacementPoints = new List<GameObject>();
+    private List<GameObject> PlacementPointsList;
 
     private int CurrentRound = 1;
     private int TotalRounds = 3;
@@ -19,6 +22,10 @@ public class player : carcontroller
     public TMP_Text CheckpointCounter;
     public TMP_Text RoundCounter;
     public TMP_Text Position;
+    public TMP_Text FinishedPosition;
+
+    public GameObject FinishedScreen;
+    public GameObject EscapeMenu;
 
     public enemy Enemyscript1;
     public enemy enemyscript2;
@@ -33,7 +40,11 @@ public class player : carcontroller
         rb = GetComponent<Rigidbody>();
 
         AllCheckpoints = GameObject.FindGameObjectsWithTag("Checkpoint").ToList();
-        CheckCheckpoints = new List<GameObject>(AllCheckpoints);
+        AllPlacementPoints = GameObject.FindGameObjectsWithTag("PlacementPoint").ToList();
+
+        PlacementPointsList = new List<GameObject>(AllPlacementPoints);
+        CheckpointsList = new List<GameObject>(AllCheckpoints);
+
         TotalCheckpoints = AllCheckpoints.Count;
     }
     private void Update()
@@ -74,6 +85,7 @@ public class player : carcontroller
         if (Input.GetKeyDown(KeyCode.R))
         {
             Unflip();
+            transform.Translate(Vector3.back * 10f * Time.deltaTime, Space.Self);
             RearLeftWheelCollider.motorTorque = 0;
             RearRightWheelCollider.motorTorque = 0;
         }
@@ -81,6 +93,12 @@ public class player : carcontroller
         if (Input.GetKey(KeyCode.Space))
         {
             EBrake();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            EscapeMenu.SetActive(true);
         }
     }
 
@@ -101,27 +119,34 @@ public class player : carcontroller
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Checkpoint" && CheckCheckpoints.Contains(other.gameObject))
+        if (other.gameObject.tag == "Checkpoint" && CheckpointsList.Contains(other.gameObject))
         {
-            CheckCheckpoints.Remove(other.gameObject);
-            CheckpointsPassed++;
+            CheckpointsList.Remove(other.gameObject);
             CurrentCheckpoints++;
         }
 
-        if (other.gameObject.tag == "StartFinish" && CheckCheckpoints.Count == 0)
+        if (other.gameObject.tag == "StartFinish" && CheckpointsList.Count == 0)
         {
             if (CurrentRound == TotalRounds)
             {
                 Time.timeScale = 0;
+                FinishedPosition.text = "Congratulations, you finished on position " + placement;
+                FinishedScreen.SetActive(true);
             }
             else
             {
                 CurrentRound++;
-                CheckpointsPassed++;
-                CheckCheckpoints = new List<GameObject>(AllCheckpoints);
+                CheckpointsList = new List<GameObject>(AllCheckpoints);
+                PlacementPointsList = new List<GameObject>(AllPlacementPoints);
                 CurrentCheckpoints = 0;
             }
 
+        }
+
+        if (other.gameObject.tag == "PlacementPoint" && PlacementPointsList.Contains(other.gameObject))
+        {
+            CheckpointsPassed++;
+            PlacementPointsList.Remove(other.gameObject);
         }
     }
 }
